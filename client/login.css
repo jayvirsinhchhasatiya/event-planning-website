@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/*===== Variable Define =====*/
+:root {
+  --primary-color: #A82C48;
+  --secondry-color: #970747;
+  --white-color: #fff;
+  --primary-font: 'Roboto', sans-serif;
+  --secondry-font: 'Quicksand', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--primary-font);
+  font-size: 100%;
+  font-weight: 400;
+}
+
+/*
+    Custom Scrollbar
+*/
+
+::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
+
+/*
+   Custom CSS Design
+*/
+
+h3 {
+  font-weight: 600;
+  font-size: 2.25rem;
+  text-transform: capitalize;
+  font-family: var(--secondry-font);
+  color: var(--secondry-color);
+  line-height: 3rem;
+}
+
+.login {
+  box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 15px;
+  border-radius: 25px;
+  width: 50%;
+}
+
+.login form label {
+  color: var(--primary-color);
+  text-transform: capitalize;
+  font-family: var(--secondry-font);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.login form input {
+  font-family: var(--secondry-font);
+}
+
+#gender-invalid {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: .875em;
+  color: #dc3545;
+}
+
+#gender-valid {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: .875em;
+  color: #198754;
+}
+
+.btn-style {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+
+@media (max-width: 767px) {
+  .login {
+    width: 70%;
+  }
+}
+
+@media (max-width: 435px) {
+  .login {
+    width: 90%;
+  }
+}
+
+@media (max-width: 375px) {
+  .login {
+    width: 100%;
+  }
+}
+
+/* @media (max-width:330px) {
+    .login {
+        width: 100%;
+    }
+} */
