@@ -39,7 +39,7 @@ include './includes/sidebar.php';
 
             <!-- Content Row -->
             <div class="row">
-                <!-- Earnings (Monthly) Card Example -->
+                <!-- all events Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
@@ -68,7 +68,7 @@ include './includes/sidebar.php';
                     </div>
                 </div>
 
-                <!-- Earnings (Monthly) Card Example -->
+                <!-- all organizers Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
@@ -97,7 +97,7 @@ include './includes/sidebar.php';
                     </div>
                 </div>
 
-                <!-- Earnings (Monthly) Card Example -->
+                <!-- total participants Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
@@ -126,7 +126,7 @@ include './includes/sidebar.php';
                     </div>
                 </div>
 
-                <!-- Pending Requests Card Example -->
+                <!-- guest Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
@@ -160,7 +160,7 @@ include './includes/sidebar.php';
             <!-- Registration Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Organizers Details</h1>
-                <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#addEquipmentModal">
+                <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#addOrganizerModal">
                     <span class="icon text-white-50">
                         <i class="fa-solid fa-user"></i>
                     </span>
@@ -168,29 +168,65 @@ include './includes/sidebar.php';
                 </a>
             </div>
 
-            <!-- Add Equipment Modal -->
-            <div class="modal fade" id="addEquipmentModal" tabindex="-1" role="dialog" aria-labelledby="addEquipmentModalLabel" aria-hidden="true">
+            <!-- Add new organizer Modal -->
+            <div class="modal fade" id="addOrganizerModal" tabindex="-1" role="dialog" aria-labelledby="addOrganizerModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addEquipmentModalLabel">Add New Equipment</h5>
+                            <h5 class="modal-title" id="addOrganizerModalLabel">Add New Organizer</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="equipmentForm" action="add_equipment.php" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                            <form id="organizerForm" action="add_organizer.php" method="POST">
+                                <!-- first name -->
+                                <div class="md-3">
+                                    <label for="firstname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name" required>
+                                    <div id="firstname-valid" class="">
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description (Max 15 words)</label>
-                                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+
+                                <!-- last name -->
+                                <div class="md-3">
+                                    <label for="lastname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name" required>
+                                    <div id="lastname-valid" class="">
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="image" class="form-label">Image (Max file size: 5MB)</label>
-                                    <input type="file" class="form-control" id="image" name="image" required accept="image/*">
+
+                                <!-- user name -->
+                                <div class="md-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
+                                    <div id="username-valid" class="">
+                                    </div>
+                                </div>
+
+                                <!-- email -->
+                                <div class="md-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                                    <div id="email-valid" class="">
+                                    </div>
+                                </div>
+
+                                <!-- password -->
+                                <div class="md-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                                    <div id="password-valid" class="">
+                                    </div>
+                                </div>
+
+                                <!-- confirm password -->
+                                <div class="md-3">
+                                    <label for="cpassword" class="form-label">Confirm Password</small></label>
+                                    <input type="password" class="form-control " id="cpassword" name="cpassword" placeholder="Confirm Password" required>
+                                    <div id="cpassword-valid" class="">
+
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -225,7 +261,7 @@ include './includes/sidebar.php';
                                 </div>
                                 <div class="mb-3">
                                     <label for="previousimg" class="form-label">Previous Image</label>
-                                    <img src='' alt='image' id="previousimg" height='100px' weight='100px' >
+                                    <img src='' alt='image' id="previousimg" height='100px' weight='100px'>
                                 </div>
                                 <div class="mb-3">
                                     <label for="imageupdate" class="form-label">Image (Max file size: 5MB)</label>
@@ -351,6 +387,10 @@ include './includes/sidebar.php';
     <!-- End of Main Content -->
 
     <!-- Bootstrap core JavaScript-->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> -->
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -371,6 +411,7 @@ include './includes/sidebar.php';
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <script src="js/demo/organizer-form-validation.js"></script>
     <script src="js/demo/chart-event-count.js"></script>
     <script src="js/demo/chart-event-type.js"></script>
     <?php

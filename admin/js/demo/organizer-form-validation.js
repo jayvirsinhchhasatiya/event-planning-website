@@ -135,15 +135,12 @@ $(document).ready(function () {
     });
 
     // Form submission
+    var registrationForm = $('#organizerForm');
+    registrationForm.on('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
 
-    var registrationFrom = $('#registrationForm');
-    registrationFrom.on('submit', function (event) {
-
-        event.preventDefault();
-        
         // Check if email and phone are validated
         if (!emailValidated) {
-            // console.log('Validation failed');
             return false;
         }
 
@@ -158,8 +155,9 @@ $(document).ready(function () {
             success: function (response) {
                 var response = response.trim();
                 if (response === 'success') {
-                    alert("You are successfully registered!")
-                    window.location.href = "login.php";
+                    alert("Organizer added successfully!");
+                    window.location.href = "index.php";
+                    
                 } else {
                     var errors = JSON.parse(response);
                     // Clear previous error messages
@@ -176,7 +174,7 @@ $(document).ready(function () {
             },
             complete: function () {
                 // Reset the form and remove the loader
-                registrationFrom[0].reset();
+                registrationForm[0].reset();
             }
         });
     });

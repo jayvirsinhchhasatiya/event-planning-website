@@ -4,7 +4,7 @@ $.ajax({
     type: 'GET',
     dataType: 'json',
     success: function(data) {
-        console.log(data);
+        // console.log(data);
         // Process data and generate the chart
         generateChartEventType(data);
     },

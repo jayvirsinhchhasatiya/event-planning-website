@@ -60,13 +60,20 @@ $(document).ready(function () {
                 email: email,
                 password: password
             },
+            
             success: function (response) {
-                // alert(response);
-                if (response === 'success') {
-                    // alert("login success");
-                    window.location.href = "index.php";
+                // Check if the response is not 'success'
+                if (response !== 'success') {
+                    // Parse the JSON response
+                    var responseData = JSON.parse(response);
+    
+                    // Check if the response has the 'database' property
+                    if (responseData.hasOwnProperty('database')) {
+                        // Extract and display the error message
+                        alert("Error: " + responseData.database);
+                    }
                 } else {
-                    alert('Login failed');
+                    window.location.href = "index.php";
                 }
             }
         });
