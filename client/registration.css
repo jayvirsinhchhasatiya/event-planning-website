@@ -73,17 +73,3 @@ h3 {
 .registration form input {
   font-family: var(--secondry-font);
 }
-
-#gender-invalid {
-  width: 100%;
-  margin-top: .25rem;
-  font-size: .875em;
-  color: #dc3545;
-}
-
-#gender-valid {
-  width: 100%;
-  margin-top: .25rem;
-  font-size: .875em;
-  color: #198754;
-}

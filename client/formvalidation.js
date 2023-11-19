@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     // Validate first name
     $('#firstname').on('keyup', function () {
         var firstname = $(this).val();

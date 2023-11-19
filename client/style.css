@@ -163,8 +163,8 @@ p {
 }
 
 .wrapper {
-  padding-top: 8.25rem;
-  padding-bottom: 8.25rem;
+  padding-top: 3.50rem;
+  padding-bottom: 3.50rem;
 }
 
 .text-content {
@@ -213,6 +213,11 @@ p {
   background-color: transparent !important;
 } 
 
+.navbar-text {
+  color: var(--primary-color);
+  font-weight: 900;
+}
+
 /* Change navbar styling on scroll */
 
 .navigation-wrap.scroll-on{
@@ -232,52 +237,26 @@ p {
 */
 .top-banner{
   width:100%;
-  background: url('./images/homebg.jpg') no-repeat center;
+  background: url('./images/homebg2.jpg') no-repeat center;
   background-size:cover;
   padding:16.875rem 0 9.375rem;
+  color: var(--primary-color);
 }
 
-.top-banner p{
-    color: #eee;
-}
-
- 
-
-/*
-  counter Design
+ upcoming-events section Design
 */
-.counter-section{
-  background-color: var(--primary-color);
-  padding:2.5rem 0;
-}
-.counter-section p{
-  color:var(--white-color);
-  text-transform: uppercase;
-}
- 
-
-/*
- about section Design
-*/
-.about-section{
+.upcoming-events-section{
   background: var(--white-color);
 }
-.about-section .card,
-.about-section .card img{
+.upcoming-events-section .card,
+.upcoming-events-section .card img{
   border-radius: 0.625rem;
 }
-.about-section .text-sec{
+.upcoming-events-section .text-sec{
   padding-left:2rem;
 }
 
-/* .about-section h2{
-  color: #970747;
-} */
- 
-/*
- food type section Design
-*/
- .food-type{
+.food-type{
    padding-top:3.25rem;
  }
 .food-type ul li{

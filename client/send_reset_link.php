@@ -59,16 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->addReplyTo($smtpUsername, 'Event Organizer');
 
-
-            //Attachments
-            // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = $subject;
             $mail->Body    = $message;
-            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             // Send the email
             if ($mail->send()) {
