@@ -120,52 +120,62 @@ $(document).ready(function () {
     });
 
     // Validate task description and assignee
-    // $('#tasks-container').on('input', '.task-pair', function () {
-    //     var taskDescription = $(this).find('.task-description').val();
-    //     var assignee = $(this).find('.assignee-emails').val();
+    $('#tasks-container').on('keyup', '.task-description, .assignee-emails', function () {
+        var taskDescription = $(this).closest('.task-pair').find('.task-description').val();
+        var assigneeEmails = $(this).closest('.task-pair').find('.assignee-emails').val();
 
-    //     if (taskDescription && !assignee) {
-    //         // Task description is present but assignee is empty
-    //         $(this).addClass('is-invalid');
-    //         $(this).find('.invalid-feedback').text('Assignee is required if task description is provided.');
-    //     } else if (!taskDescription && assignee) {
-    //         // Assignee is present but task description is empty
-    //         $(this).addClass('is-invalid');
-    //         $(this).find('.invalid-feedback').text('Task description is required if assignee is provided.');
-    //     } else {
-    //         // Both task description and assignee are either present or absent
-    //         $(this).removeClass('is-invalid');
-    //         $(this).find('.invalid-feedback').text('');
-    //     }
-    // });
+        // Check if task description is empty
+        if (!taskDescription.trim()) {
+            $(this).closest('.task-pair').find('.task-description').addClass('is-invalid');
+        } else {
+            $(this).closest('.task-pair').find('.task-description').removeClass('is-invalid');
+        }
+
+        // Check if assignee emails are valid
+        var invalidAssignees = assigneeEmails.split(',').filter(function (email) {
+            return !isValidEmail(email.trim());
+        });
+
+        if (invalidAssignees.length > 0) {
+            $(this).closest('.task-pair').find('.assignee-emails').addClass('is-invalid');
+        } else {
+            $(this).closest('.task-pair').find('.assignee-emails').removeClass('is-invalid');
+        }
+    });
+
+    // Function to validate email address
+    function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 
     // Add task
-    // $('#addTask').on('click', function () {
-    //     // Check if the last task and assignee pair is filled before adding a new one
-    //     var lastTaskPair = $('.task-pair').last();
-    //     var lastTaskDescription = lastTaskPair.find('.task-description').val();
-    //     var lastAssigneeEmails = lastTaskPair.find('.assignee-emails').val();
+    $('#addTask').on('click', function () {
+        // Check if the last task and assignee pair is filled before adding a new one
+        var lastTaskPair = $('.task-pair').last();
+        var lastTaskDescription = lastTaskPair.find('.task-description').val();
+        var lastAssigneeEmails = lastTaskPair.find('.assignee-emails').val();
 
-    //     if (lastTaskDescription || lastAssigneeEmails) {
-    //         var taskCount = $('.task-pair').length + 1;
+        if (lastTaskDescription || lastAssigneeEmails) {
+            var taskCount = $('.task-pair').length + 1;
 
-    //         var newTaskPair = $('<div class="task-pair"></div>');
-    //         var task = $('<div class="task"></div>').html(`
-    //             <label for="task_description_${taskCount}" class="form-label">Task Description</label>
-    //             <input type="text" class="form-control task-description" name="tasks[${taskCount}][description]" placeholder="Enter task description">
-    //         `);
-    //         var assignee = $('<div class="assignee"></div>').html(`
-    //             <label for="assignees_${taskCount}" class="form-label mt-2">Assignees (comma-separated emails)</label>
-    //             <input type="text" class="form-control assignee-emails" name="tasks[${taskCount}][assignees]" placeholder="Enter assignee emails">
-    //         `);
+            var newTaskPair = $('<div class="task-pair"></div>');
+            var task = $('<div class="task"></div>').html(`
+                <label for="task_description_${taskCount}" class="form-label">Task Description</label>
+                <input type="text" class="form-control task-description" name="tasks[${taskCount}][description]" placeholder="Enter task description">
+            `);
+            var assignee = $('<div class="assignee"></div>').html(`
+                <label for="assignees_${taskCount}" class="form-label mt-2">Assignees (comma-separated emails)</label>
+                <input type="text" class="form-control assignee-emails" name="tasks[${taskCount}][assignees]" placeholder="Enter assignee emails">
+            `);
 
-    //         newTaskPair.append(task, assignee);
-    //         $('#tasks-container').append(newTaskPair);
-    //     } else {
-    //         // Display an alert if the last task and assignee pair is empty
-    //         alert('Please fill in the last task and assignee pair before adding a new one.');
-    //     }
-    // });
+            newTaskPair.append(task, assignee);
+            $('#tasks-container').append(newTaskPair);
+        } else {
+            // Display an alert if the last task and assignee pair is empty
+            alert('Please fill in the last task and assignee pair before adding a new one.');
+        }
+    });
 
 
     // Form submission
@@ -191,10 +201,25 @@ $(document).ready(function () {
                     data: formData,
                     success: function (response) {
                         // Handle the response from the server
-                        console.log(response);
+                        // console.log(response);
+
+                        // Check if the response indicates success
+                        if (response === 'success') {
+                            // Show alert for successful event creation
+                            alert('Event created successfully!');
+
+                            // Reset the form
+                            eventForm[0].reset();
+                        } else {
+                            // Handle other responses or errors
+                            alert('Error: ' + response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle AJAX errors
+                        alert('AJAX Error: ' + error);
                     },
                     complete: function () {
-                        // Reset the form and remove the loader
                         eventForm[0].reset();
                     }
                 });

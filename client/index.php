@@ -34,7 +34,7 @@ if (!isset($_SESSION['client'])) {
     include 'navbar.php';
     ?>
 
-    <!-- section-1 top-banner -->
+    <!-- top-banner -->
     <section id="home">
         <div class="container-fluid px-0 top-banner">
             <div class="container">
@@ -50,7 +50,7 @@ if (!isset($_SESSION['client'])) {
         </div>
     </section>
 
-    <!-- section-2 upcoming events -->
+    <!-- upcoming events -->
     <section id="upcoming-events">
         <div class="upcoming-events-section wrapper">
             <div class="container">
@@ -111,7 +111,7 @@ if (!isset($_SESSION['client'])) {
 
 
 
-    <!-- section-9 footer-->
+    <!-- footer-->
     <?php
     include 'footer.php';
     ?>
@@ -120,7 +120,7 @@ if (!isset($_SESSION['client'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
     <!-- own js -->
-    <script src="index.js"></script>
+    <script src="navbar.js"></script>
 </body>
 
 </html>
