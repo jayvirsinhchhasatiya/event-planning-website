@@ -29,7 +29,15 @@ if (!isset($_SESSION['client'])) {
 
     <!-- jquery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+    <style>
+        .nav-link {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            color: var(--secondry-color);
+            letter-spacing: 1px;
+        }
+    </style>
 
 </head>
 
@@ -67,11 +75,11 @@ if (!isset($_SESSION['client'])) {
                 $userDetails = mysqli_fetch_array($query);
 
                 ?>
-                <p>Firstname: <?php echo $userDetails['first_name']; ?></p>
-                <p>Lastname: <?php echo $userDetails['last_name']; ?></p>
-                <p>Username: <?php echo $userDetails['username']; ?></p>
-                <p>Email: <?php echo $userDetails['email']; ?></p>
-                <p>User Type: <?php echo $userDetails['user_type']; ?></p>
+                <p><strong>Firstname: </strong><?php echo $userDetails['first_name']; ?></p>
+                <p><strong>Lastname: </strong><?php echo $userDetails['last_name']; ?></p>
+                <p><strong>Username: </strong><?php echo $userDetails['username']; ?></p>
+                <p><strong>Email: </strong><?php echo $userDetails['email']; ?></p>
+                <p><strong>User Type: </strong><?php echo $userDetails['user_type']; ?></p>
             </div>
         </div>
 
@@ -95,24 +103,27 @@ if (!isset($_SESSION['client'])) {
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Event Name</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Venue</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" class='text-center align-middle'>Event Name</th>
+                                <th scope="col" class='text-center align-middle'>Event Date</th>
+                                <th scope="col" class='text-center align-middle'>Time</th>
+                                <th scope="col" class='text-center align-middle'>Venue</th>
+                                <th scope="col" class='text-center align-middle'>Event Created Date</th>
+                                <th scope="col" class='text-center align-middle'>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($events as $event) : ?>
                                 <tr>
-                                    <td><?php echo $event['event_name']; ?></td>
-                                    <td><?php echo $event['event_date']; ?></td>
-                                    <td><?php echo $event['event_time']; ?></td>
-                                    <td><?php echo $event['venue']; ?></td>
-                                    <td>
-                                        <button class="btn btn-primary" onclick="showEvent(<?php echo $event['event_id']; ?>)">Show</button>
-                                        <button class="btn btn-warning" onclick="updateEvent(<?php echo $event['event_id']; ?>)">Update</button>
-                                        <button class="btn btn-danger" onclick="deleteEvent(<?php echo $event['event_id']; ?>, '<?php echo $event['event_date']; ?>')">Delete</button>
+                                    <td class='text-center align-middle'><?php echo $event['event_name']; ?></td>
+                                    <td class='text-center align-middle'><?php echo date_format(date_create($event['event_date']), 'd/m/Y'); ?></td>
+                                    <td class='text-center align-middle'><?php echo $event['event_time']; ?></td>
+                                    <td class='text-center align-middle'><?php echo $event['venue']; ?></td>
+                                    <td class='text-center align-middle'><?php echo date_format(date_create($event['event_created_date']), 'd/m/Y'); ?></td>
+
+                                    <td class='text-center align-middle'>
+                                        <button class="btn btn-primary show-btn"><a href="showEvent.php?id=<?php echo $event['event_id']; ?>" style="color: white;">Show</a></button>
+                                        <button class="btn btn-warning update-btn"><a href="updateEvent.php?id=<?php echo $event['event_id']; ?>" style="color: black;">Update</a></button>
+                                        <button class="btn btn-danger delete-btn" id="delete-btn-<?php echo $event['event_id']; ?>" onclick="deleteEvent(<?php echo $event['event_id']; ?>, '<?php echo $event['event_date']; ?>')">Delete</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

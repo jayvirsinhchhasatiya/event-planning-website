@@ -21,8 +21,8 @@ $(document).ready(function () {
 
     // Validate event type
     var eventTypeValid = false;
-    $('#eventType').on('change', function () {
-        var eventType = $(this).val();
+    function validateEventType() {
+        var eventType = $('#eventType').val();
         if (eventType === "Default") {
             $('#eventType').addClass('is-invalid');
             $('#eventType-valid').addClass('invalid-feedback');
@@ -36,7 +36,10 @@ $(document).ready(function () {
             $('#eventType-valid').text('Looks good!');
             eventTypeValid = true;
         }
-    });
+    }
+
+    // Event type validation on change
+    $('#eventType').on('change', validateEventType);
 
 
     // Validate event description
@@ -177,6 +180,12 @@ $(document).ready(function () {
         }
     });
 
+    // Manually trigger change event for #eventType
+    $('#eventType').trigger('change');
+
+    // Manually validate event type
+    validateEventType();
+
 
     // Form submission
     var eventForm = $('#eventForm');
@@ -184,33 +193,36 @@ $(document).ready(function () {
 
         if (isValid) {
             event.preventDefault();
-            // console.log('inside submit');
+            console.log('inside submit');
+            console.log(eventTypeValid);
+            
             if (eventTypeValid) {
+                console.log('inside vali');
 
                 // Disable the delete button
                 $('#addTask').prop('disabled', true);
-                $('#createEvent').prop('disabled', true);
+                $('#updateEvent').prop('disabled', true);
 
                 var spinner = '<div class="spinner-border me-2 text-light" role="status"></div>';
                 var loadingText = '<span class="visually-hidden">Loading..</span>';
 
-                $('#createEvent').html('<div class="d-flex align-items-center justify-content-center">' + spinner + loadingText + '</div>');
+                $('#updateEvent').html('<div class="d-flex align-items-center justify-content-center">' + spinner + loadingText + '</div>');
 
                 var form = $(this);
                 var formData = form.serialize();
 
 
-                // console.log(formData);
+                console.log(formData);
                 $.ajax({
-                    url: 'process_event.php',
+                    url: 'updateEventData.php',
                     method: 'POST',
                     data: formData,
                     success: function (response) {
 
                         // alert(response);
                         if (response === 'success') {
-                            alert('Event created successfully!');
-                            window.location.reload();
+                            alert('Event Updated successfully!');
+                            window.location.href = "profile.php";
                         } else {
                             alert('Error: ' + response);
                         }
@@ -220,9 +232,9 @@ $(document).ready(function () {
                     },
                     complete: function () {
                         $('#addTask').prop('disabled', false);
-                        $('#createEvent').prop('disabled', false);
-                        $('#createEvent').html('Create Event');
-
+                        $('#updateEvent').prop('disabled', false);
+                        $('#updateEvent').html('Update Event');
+                        
                     }
                 });
             }

@@ -1,29 +1,7 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-include 'connection.php';
-
-require '../phpmailer/src/PHPMailer.php';
-require '../phpmailer/src/SMTP.php';
-require '../phpmailer/src/Exception.php';
-
-session_start();
-if (!isset($_SESSION['client'])) {
-
-    echo '<script>
-        alert("Please login to continue");
-        window.location.href = "login.php";
-        </script>';
-    // header("Location: index.php");
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // print_r($_POST);
-    // die();
     $eventName = $_POST['eventName'];
     $eventType = $_POST['eventType'];
     $eventDescription = $_POST['eventDescription'];
@@ -64,10 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $result = mysqli_query($conn, $insertEventQuery);
 
-            // print_r($result);
-
             if ($result) {
-                // print_r("inside result");
                 // Update eventId with the last inserted ID
                 $eventId = mysqli_insert_id($conn);
 
@@ -120,63 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode($errors);
         exit;
     }
-}
+} 
 
 
-function sendEventCreationEmail($organizerEmail, $organizerPassword, $eventName)
-{
-    $mail = new PHPMailer(true);
-
-    try {
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $organizerEmail;
-        $mail->Password   = $organizerPassword;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
-
-        $mail->setFrom($organizerEmail, 'Event Organizer');
-        $mail->addAddress($organizerEmail);
-        $mail->addReplyTo($organizerEmail, 'Event Organizer');
-        $mail->isHTML(true);
-        $mail->Subject = "Event Created Successfully";
-        $mail->Body    = "Your event '$eventName' has been successfully created.";
-
-        $mail->send();
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$e->getMessage()}";
-    }
-}
-
-function sendTaskNotificationEmail($organizerEmail, $organizerPassword, $assigneeEmail, $eventName, $taskDescription)
-{
-    $mail = new PHPMailer(true);
-
-    try {
-        // Server settings
-        $mail->SMTPDebug = 0;
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $organizerEmail;
-        $mail->Password   = $organizerPassword;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
-
-        // Recipients
-        $mail->setFrom($organizerEmail, 'Event Organizer');
-        $mail->addAddress($assigneeEmail);
-        $mail->addReplyTo($organizerEmail, 'Event Organizer');
-
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = "New Task Assignment for Event: $eventName";
-        $mail->Body    = "You have been assigned a new task for the event '$eventName'.<br><br>Task Description: $taskDescription";
-
-        // Send the email
-        $mail->send();
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$e->getMessage()}";
-    }
-}

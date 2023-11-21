@@ -6,6 +6,17 @@ function deleteEvent(eventId, eventDate) {
         var confirmDelete = confirm('Are you sure you want to delete this event?');
 
         if (confirmDelete) {
+            // alert(eventId);
+             // Disable the delete button
+             $('.show-btn').prop('disabled', true);
+             $('.update-btn').prop('disabled', true);
+             $('.delete-btn').prop('disabled', true);
+
+             var spinner = '<div class="spinner-border me-2 text-light" role="status"></div>';
+             var loadingText = '<span class="visually-hidden">Loading..</span>';
+
+            $('#delete-btn-' + eventId).html('<div class="d-flex align-items-center justify-content-center">' + spinner + loadingText + '</div>');
+
             $.ajax({
                 url: 'deleteEvent.php',
                 method: 'POST',
@@ -23,6 +34,13 @@ function deleteEvent(eventId, eventDate) {
                 },
                 error: function () {
                     alert('Error deleting event.');
+                },
+                complete: function () {
+                    $('.show-btn').prop('disabled', false);
+                    $('.update-btn').prop('disabled', false);
+                    $('.delete-btn').prop('disabled', false);
+                    $('#delete-btn-' + eventId).html('Delete');
+                    
                 }
             });
         }

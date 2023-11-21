@@ -14,12 +14,10 @@ session_start();
 // print_r($_SESSION);
 
 if (!isset($_SESSION['client'])) {
-
     echo '<script>
         alert("Please login to continue");
         window.location.href = "login.php";
         </script>';
-    // header("Location: index.php");
 }
 
 if (!$conn) {
@@ -27,7 +25,6 @@ if (!$conn) {
 }
 
 if (isset($_POST['eventId'])) {
-    print_r($_POST);
     $eventId = $_POST['eventId'];
 
     // Get event details
@@ -66,21 +63,18 @@ if (isset($_POST['eventId'])) {
                     $organizerPassword = $row['password'];
                     $eventName = $event['event_name'];
 
-
                     // Send email notification to the assignee
                     sendTaskNotificationEmail($organizerEmail, $organizerPassword, $assigneeEmail, $eventName);
-
-                    // Send email to assignee notifying event cancellation
-                    // Add your email sending logic here
-                    // ...
-
-                    // For example, you can use PHP's mail() function
-                    $subject = 'Event Cancellation Notification';
-                    $message = 
-
-                    mail($assigneeEmail, $subject, $message);
                 }
+
+                // Delete assignees for the current task
+                $deleteAssigneesQuery = "DELETE FROM assignees WHERE task_id='$taskId'";
+                mysqli_query($conn, $deleteAssigneesQuery);
             }
+
+            // Delete tasks for the current event
+            $deleteTasksQuery = "DELETE FROM tasks WHERE event_id='$eventId'";
+            mysqli_query($conn, $deleteTasksQuery);
 
             // Delete the event
             $deleteEventQuery = "DELETE FROM events WHERE event_id='$eventId'";
@@ -93,7 +87,7 @@ if (isset($_POST['eventId'])) {
             }
         } else {
             echo json_encode(['success' => false, 'message' => 'Cannot delete past events.']);
-        }"Dear Assignee,\n\nThe event '{$event['event_name']}' has been canceled.\n\nRegards,\nEventPlanner";
+        }
     } else {
         echo json_encode(['success' => false, 'message' => 'Event not found.']);
     }
@@ -113,7 +107,7 @@ function sendTaskNotificationEmail($organizerEmail, $organizerPassword, $assigne
 
     try {
         // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
         $mail->Host       = $smtpHost;
         $mail->SMTPAuth   = true;
@@ -138,3 +132,4 @@ function sendTaskNotificationEmail($organizerEmail, $organizerPassword, $assigne
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+?>

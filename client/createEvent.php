@@ -50,7 +50,7 @@ if (!isset($_SESSION['client'])) {
     <div class="container">
         <div class="registration p-5 my-5">
             <h3 class="mb-3">Create Event</h3>
-            <form class="row g-3" id="eventForm" action="process_event.php" method="POST">
+            <form class="row g-3" id="eventForm">
                 <!-- Event name -->
                 <div class="col-md-6">
                     <label for="eventName" class="form-label">Event Name</label>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['client'])) {
 
                 <!-- Submit button -->
                 <div class="col-12 d-grid ">
-                    <button type="submit" class="btn btn-primary">Create Event</button>
+                    <button type="submit" id="createEvent" class="btn btn-primary">Create Event</button>
                 </div>
             </form>
         </div>
