@@ -46,7 +46,6 @@ include './includes/sidebar.php';
                                     <th>Event Venue</th>
                                     <th>Event Creation Date</th>
                                     <th>Event Organizer Name</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -59,7 +58,6 @@ include './includes/sidebar.php';
                                     <th>Event Venue</th>
                                     <th>Event Creation Date</th>
                                     <th>Event Organizer Name</th>
-                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -91,20 +89,6 @@ include './includes/sidebar.php';
                                             <?php $date = date_create($row['event_created_date']); ?>
                                             <td class='text-center align-middle'><?php echo date_format($date, 'd/m/Y'); ?></td>
                                             <td class='text-center align-middle'><?php echo $row['organizer_name']; ?></td>
-
-                                            <td class='text-center align-middle'>
-                                                <!-- update -->
-                                                <form id='updateForm' method='POST'>
-                                                    <input type='hidden' id='event_id_update' name='event_id_update' value="<?php echo $row['id']; ?>">
-                                                    <button class='btn btn-primary m-2 update-btn' id='update-btn-<?php echo $row['id']; ?>' name='update_submit' data-update-id='<?php echo $row['id']; ?>'>Update</button>
-                                                </form>
-
-                                                <!-- delete -->
-                                                <form id='deleteForm' method='POST'>
-                                                    <input type='hidden' id='event_id_delete' name='event_id_delete' value="<?php echo $row['id']; ?>">
-                                                    <button class='btn btn-danger delete-btn' id='delete-btn-<?php echo $row['id']; ?>' data-delete-id='<?php echo $row['id']; ?>' name='delete_submit'>Delete</button>
-                                                </form>
-                                            </td>
                                         </tr>
                                         <!-- display table content end -->
 

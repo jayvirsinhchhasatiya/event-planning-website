@@ -2,7 +2,7 @@
   <footer class="sticky-footer bg-white">
       <div class="container my-auto">
           <div class="copyright text-center my-auto">
-              <span>Copyright &copy; EventMaster 2023</span>
+              <span>Copyright &copy; EVENTMASTER 2023</span>
           </div>
       </div>
   </footer>
