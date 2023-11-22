@@ -119,6 +119,28 @@ $(document).ready(function () {
         }
     });
 
+    // Validate participants
+    $('#participant').on('keyup', function () {
+        var participants = $(this).val();
+        var invalidParticipants = participants.split(',').filter(function (email) {
+            return !isValidEmail(email.trim());
+        });
+
+        if (invalidParticipants.length > 0) {
+            $('#participant').addClass('is-invalid');
+            $('#participant-valid').addClass('invalid-feedback');
+            $('#participant-valid').text('Invalid participant emails. Please check and correct.');
+            isValid = false;
+        } else {
+            $('#participant').removeClass('is-invalid');
+            $('#participant-valid').removeClass('invalid-feedback');
+            $('#participant').addClass('is-valid');
+            $('#participant-valid').addClass('valid-feedback');
+            $('#participant-valid').text('Looks good!');
+            isValid = true;
+        }
+    });
+
     // Validate task description and assignee
     $('#tasks-container').on('keyup', '.task-description, .assignee-emails', function () {
         var taskDescription = $(this).closest('.task-pair').find('.task-description').val();

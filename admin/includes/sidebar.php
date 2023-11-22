@@ -44,13 +44,26 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fa-solid fa-user"></i>
+            <span>Participants</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Participants Table:</h6>
+                <a class="collapse-item" href="all_participant_detail.php">All Participants</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa-solid fa-list-check"></i>
             <span>Tasks</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Task Tables:</h6>
+                <h6 class="collapse-header">Task Table:</h6>
                 <a class="collapse-item" href="all_tasks_detail.php">All Tasks</a>
             </div>
         </div>

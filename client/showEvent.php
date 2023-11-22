@@ -65,14 +65,14 @@ if ($eventResult) {
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
         <style>
-        .nav-link {
-            font-size: 0.9375rem;
-            font-weight: 600;
-            text-transform: capitalize;
-            color: var(--secondry-color);
-            letter-spacing: 1px;
-        }
-    </style>
+            .nav-link {
+                font-size: 0.9375rem;
+                font-weight: 600;
+                text-transform: capitalize;
+                color: var(--secondry-color);
+                letter-spacing: 1px;
+            }
+        </style>
     </head>
 
     <body>
@@ -99,9 +99,29 @@ if ($eventResult) {
 
             <div class="card mb-3">
                 <div class="card-body">
+                    <h3 class="card-title">Participants:</h3>
+                    <?php
+                    // Fetch participants for the event
+                    $participantsQuery = "SELECT * FROM participants WHERE event_id = $id";
+                    $participantsResult = mysqli_query($conn, $participantsQuery);
+
+                    if ($participantsResult && mysqli_num_rows($participantsResult) > 0) {
+                        echo '<ul>';
+                        while ($participant = mysqli_fetch_assoc($participantsResult)) {
+                            echo '<li>' . $participant['participant_email'] . '</li>';
+                        }
+                        echo '</ul>';
+                    } else {
+                        echo '<p class="card-text">No participants found for this event.</p>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
                     <h3 class="card-title">Tasks:</h3>
                     <?php foreach ($eventDetails['tasks'] as $task) : ?>
-                        <p class="card-text"><?php echo $task['task_description']; ?></p>
+                        <p class="card-text"><strong><?php echo $task['task_description']; ?></strong></p>
                         <ul>
                             <?php foreach ($task['assignees'] as $assignee) : ?>
                                 <li class="card-text"><?php echo $assignee['assignee_email']; ?></li>

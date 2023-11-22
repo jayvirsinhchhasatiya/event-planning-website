@@ -106,7 +106,7 @@ include './includes/sidebar.php';
                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Participants
                                     </div>
                                     <?php
-                                    $query = "SELECT COUNT(*) AS total_participants FROM users WHERE user_type = 'participant'";
+                                    $query = "SELECT COUNT(*) AS total_participants FROM participants";
                                     $result = mysqli_query($conn, $query);
 
                                     if ($result) {

@@ -96,10 +96,18 @@ if (!isset($_SESSION['client'])) {
                 </div>
 
                 <!-- Venue -->
-                <div class="col-md-6">
+                <div class="col-12">
                     <label for="venue" class="form-label">Venue</label>
                     <input type="text" class="form-control" id="venue" name="venue" placeholder="Enter Venue" required>
                     <div id="venue-valid" class="">
+                    </div>
+                </div>
+
+                <!-- Participant -->
+                <div class="col-12">
+                    <label for="participant" class="form-label">Participants (comma-separated emails)</label>
+                    <input type="text" class="form-control" id="participant" name="participant" placeholder="Enter participant emails" required>
+                    <div id="participant-valid" class="">
                     </div>
                 </div>
 

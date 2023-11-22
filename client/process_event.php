@@ -71,6 +71,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Update eventId with the last inserted ID
                 $eventId = mysqli_insert_id($conn);
 
+                // Check if participants are provided
+                if (isset($_POST['participant'])) {
+                    $participantEmails = explode(',', $_POST['participant']);
+
+                    // Insert participant details into the participants table
+                    foreach ($participantEmails as $participantEmail) {
+                        $participantEmail = trim($participantEmail); // Remove leading/trailing spaces
+
+                        $insertParticipantQuery = "INSERT INTO participants (event_id, participant_email) 
+                VALUES ('$eventId', '$participantEmail')";
+                        mysqli_query($conn, $insertParticipantQuery);
+
+                        // Send email notification to the participant
+                        sendEventDetailsEmail($organizerEmail, $organizerPassword, $participantEmail, $eventName, $eventDate, $eventTime, $venue, $eventDescription);
+                    }
+                }
+
                 // Check if tasks are provided
                 if (isset($_POST['tasks'])) {
                     // Process tasks
@@ -175,6 +192,42 @@ function sendTaskNotificationEmail($organizerEmail, $organizerPassword, $assigne
         $mail->Body    = "You have been assigned a new task for the event '$eventName'.<br><br>Task Description: $taskDescription";
 
         // Send the email
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$e->getMessage()}";
+    }
+}
+
+function sendEventDetailsEmail($organizerEmail, $organizerPassword, $participantEmail, $eventName, $eventDate, $eventTime, $venue, $eventDescription)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $organizerEmail;
+        $mail->Password   = $organizerPassword;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+
+        $mail->setFrom($organizerEmail, 'Event Organizer');
+        $mail->addAddress($participantEmail);
+        $mail->addReplyTo($organizerEmail, 'Event Organizer');
+        $mail->isHTML(true);
+        $mail->Subject = "Event Details: $eventName";
+        $mail->Body    = "Dear students and faculty members,<br><br>
+                          We are organizing another event...<br><br>
+                          Take a part of of the event '$eventName'.<br><br>
+                          Event Details:<br>
+                          - Date: $eventDate<br>
+                          - Time: $eventTime<br>
+                          - Venue: $venue<br>
+                          - Description: $eventDescription<br><br>
+                          We look forward to seeing you there!<br><br>
+                          Best regards,<br>
+                          Event Organizer";
+
         $mail->send();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$e->getMessage()}";
