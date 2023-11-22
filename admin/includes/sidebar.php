@@ -58,18 +58,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Nav Item - Equipment -->
-    <li class="nav-item">
-        <a class="nav-link" href="equipments.php">
-            <i class="fa-regular fa-id-card"></i>
-            <span>Guests</span></a>
-    </li>
-
-    <!-- <hr class="sidebar-divider"> -->
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

@@ -40,7 +40,7 @@ include './includes/sidebar.php';
             <!-- Content Row -->
             <div class="row">
                 <!-- all events Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -69,7 +69,7 @@ include './includes/sidebar.php';
                 </div>
 
                 <!-- all organizers Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -98,7 +98,7 @@ include './includes/sidebar.php';
                 </div>
 
                 <!-- total participants Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-4 mb-4">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -120,35 +120,6 @@ include './includes/sidebar.php';
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- guest Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Total Guests</div>
-                                    <?php
-                                    $query = "SELECT COUNT(*) AS total_guests FROM guests";
-                                    $result = mysqli_query($conn, $query);
-
-                                    if ($result) {
-                                        $row = mysqli_fetch_assoc($result);
-                                        $totalguests = $row['total_guests'];
-                                        echo "<div class='h5 mb-0 font-weight-bold text-gray-800'>$totalguests</div>";
-                                    } else {
-                                        echo "Error: " . mysqli_error($conn);
-                                    }
-                                    ?>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
