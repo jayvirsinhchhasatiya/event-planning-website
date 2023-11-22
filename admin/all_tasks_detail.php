@@ -27,11 +27,11 @@ include './includes/sidebar.php';
         <div class="container-fluid">
 
             <!-- Page Heading -->
-            <h1 class="h3 mb-4 text-gray-800">Events Details</h1>
+            <h1 class="h3 mb-4 text-gray-800">Event Tasks Details</h1>
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">All Events Details Table</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Event Tasks Details</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -40,76 +40,68 @@ include './includes/sidebar.php';
                                 <tr>
                                     <th>Sr. Number</th>
                                     <th>Event Name</th>
-                                    <th>Event Description</th>
                                     <th>Event Date</th>
-                                    <th>Event Time</th>
                                     <th>Event Venue</th>
-                                    <th>Event Creation Date</th>
                                     <th>Event Organizer Name</th>
-                                    <th>Event Type</th>
+                                    <th>Task</th>
+                                    <th>Assignees</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>Sr. Number</th>
                                     <th>Event Name</th>
-                                    <th>Event Description</th>
                                     <th>Event Date</th>
-                                    <th>Event Time</th>
                                     <th>Event Venue</th>
-                                    <th>Event Creation Date</th>
                                     <th>Event Organizer Name</th>
-                                    <th>Event Type</th>
+                                    <th>Task</th>
+                                    <th>Assignees</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 <?php
-
                                 include './includes/connection.php';
 
                                 $query = "SELECT events.*, CONCAT(users.first_name, ' ', users.last_name) AS organizer_name
-                                FROM events 
-                                LEFT JOIN users ON events.organizer_id = users.user_id
-                                ORDER BY events.event_id DESC";
+                                            FROM events 
+                                            LEFT JOIN users ON events.organizer_id = users.user_id 
+                                            ORDER BY events.event_id DESC";
                                 $result = mysqli_query($conn, $query);
 
                                 if (mysqli_num_rows($result) > 0) {
                                     $count = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                ?>
+                                        // Fetch tasks for the event
+                                        $tasksQuery = "SELECT * FROM tasks WHERE event_id = {$row['event_id']}";
+                                        $tasksResult = mysqli_query($conn, $tasksQuery);
 
-                                        <!-- display table content start -->
-                                        <tr>
-                                            <td class='text-center align-middle'><?php echo $count; ?></td>
-                                            <td class='text-center align-middle'><?php echo $row['event_name']; ?></td>
-                                            <td class='text-center align-middle'><?php echo $row['event_description']; ?></td>
+                                        // Display event details in a row
+                                        while ($task = mysqli_fetch_assoc($tasksResult)) {
+                                            // Fetch assignees for each task
+                                            $assigneesQuery = "SELECT assignee_email FROM assignees WHERE task_id = {$task['task_id']}";
+                                            $assigneesResult = mysqli_query($conn, $assigneesQuery);
+                                            $assignees = mysqli_fetch_all($assigneesResult);
 
-                                            <!-- Format the date in dd/mm/yyyy format -->
-                                            <?php $date = date_create($row['event_date']); ?>
-                                            <td class='text-center align-middle'><?php echo date_format($date, 'd/m/Y'); ?></td>
-
-                                            <td class='text-center align-middle'><?php echo $row['event_time']; ?></td>
-                                            <td class='text-center align-middle'><?php echo $row['venue']; ?></td>
-
-                                            <!-- Format the date in dd/mm/yyyy format -->
-                                            <?php $date = date_create($row['event_created_date']); ?>
-                                            <td class='text-center align-middle'><?php echo date_format($date, 'd/m/Y'); ?></td>
-
-                                            <td class='text-center align-middle'><?php echo $row['organizer_name']; ?></td>
-                                            <td class='text-center align-middle'><?php echo $row['event_type']; ?></td>
-                                        </tr>
-                                        <!-- display table content end -->
-
-                                <?php
-                                        $count++;
+                                            echo "<tr>";
+                                            echo "<td class='text-center align-middle'>{$count}</td>";
+                                            echo "<td class='text-center align-middle'>{$row['event_name']}</td>";
+                                            echo "<td class='text-center align-middle'>" . date_format(date_create($row['event_date']), 'd/m/Y') . "</td>";
+                                            echo "<td class='text-center align-middle'>{$row['venue']}</td>";
+                                            echo "<td class='text-center align-middle'>{$row['organizer_name']}</td>";
+                                            echo "<td class='text-center align-middle'>{$task['task_description']}</td>";
+                                            echo "<td class='text-center align-middle'>" . implode(', ', array_column($assignees, 0)) . "</td>";
+                                            echo "</tr>";
+                                            $count++;
+                                        }
                                     }
                                 } else {
-                                    echo "<tr><td colspan='12'>No records found</td></tr>";
+                                    echo "<tr><td colspan='7'>No records found</td></tr>";
                                 }
                                 mysqli_close($conn);
                                 ?>
                             </tbody>
                         </table>
+
 
                     </div>
                 </div>

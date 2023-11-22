@@ -44,6 +44,7 @@ include './includes/sidebar.php';
                                     <th>Event Date</th>
                                     <th>Event Time</th>
                                     <th>Event Venue</th>
+                                    <th>Event Creation Date</th>
                                     <th>Event Organizer Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -56,6 +57,7 @@ include './includes/sidebar.php';
                                     <th>Event Date</th>
                                     <th>Event Time</th>
                                     <th>Event Venue</th>
+                                    <th>Event Creation Date</th>
                                     <th>Event Organizer Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -85,6 +87,9 @@ include './includes/sidebar.php';
                                             <td class='text-center align-middle'><?php echo date_format($date, 'd/m/Y'); ?></td>
                                             <td class='text-center align-middle'><?php echo $row['event_time']; ?></td>
                                             <td class='text-center align-middle'><?php echo $row['venue']; ?></td>
+                                            <!-- Format the date in dd/mm/yyyy format -->
+                                            <?php $date = date_create($row['event_created_date']); ?>
+                                            <td class='text-center align-middle'><?php echo date_format($date, 'd/m/Y'); ?></td>
                                             <td class='text-center align-middle'><?php echo $row['organizer_name']; ?></td>
 
                                             <td class='text-center align-middle'>

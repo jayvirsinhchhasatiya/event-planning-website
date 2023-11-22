@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fa-solid fa-calendar-days"></i>
+            <i class="fa-solid fa-calendar-days"></i>
         </div>
         <div class="sidebar-brand-text mx-3">EventMaster</div>
     </a>
@@ -29,16 +29,29 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa-solid fa-address-card"></i>
             <span>Events</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Events Tables:</h6>
                 <a class="collapse-item" href="all_events_detail.php">All Events</a>
                 <a class="collapse-item" href="competitive_events_detail.php">Competitive Events</a>
                 <a class="collapse-item" href="non_competitive_events_detail.php">Non-Competitive Events</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Task Tables:</h6>
+                <a class="collapse-item" href="all_tasks_detail.php">All Tasks</a>
             </div>
         </div>
     </li>
@@ -48,7 +61,7 @@
     <!-- Nav Item - Equipment -->
     <li class="nav-item">
         <a class="nav-link" href="equipments.php">
-        <i class="fa-regular fa-id-card"></i>
+            <i class="fa-regular fa-id-card"></i>
             <span>Guests</span></a>
     </li>
 

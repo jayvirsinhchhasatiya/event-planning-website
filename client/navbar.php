@@ -1,7 +1,7 @@
 <div>
   <nav class="navbar navbar-expand-lg navigation-wrap">
     <div class="container"> <!-- Use container-fluid instead of container -->
-      <a class="navbar-brand" href="index.php"><h3 class="navbar-text">EventPlanner</h3></a>
+      <a class="navbar-brand" href="index.php"><h3 class="navbar-text">EVENTMASTER</h3></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-stream navbar-toggler-icon"></i>
       </button>

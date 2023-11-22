@@ -17,7 +17,7 @@
                 <div class="col-sm-12">
                     <div class="footer-copy">
                         <div class="copy-right text-center pt-5">
-                            <p class="text-light">© 2023. EventPlanner. All rights reserved.</p>
+                            <p class="text-light">© 2023. EVENTMASTER. All rights reserved.</p>
                         </div>
                     </div>
                 </div>
